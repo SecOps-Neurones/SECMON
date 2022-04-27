@@ -963,7 +963,7 @@ def showProducts(ptype_search):
 		handleException(e)
 		result = ["NOK",""]
 		return result   
-def mailTester(smtp_login, smtp_password, smtpsrv, port, tls, sender, receivers):
+def mailTester(smtpsrv, port, tls, sender, receivers):
 	try:
 		if tls == "True":
 			tls = "yes"
@@ -1011,17 +1011,17 @@ def mailTester(smtp_login, smtp_password, smtpsrv, port, tls, sender, receivers)
 			if tls == "yes":
 				smtpserver.ehlo()
 				smtpserver.starttls()
-				smtpserver.login(smtp_login, smtp_password)
+				#smtpserver.login(smtp_login, smtp_password)
 				smtpserver.sendmail(sender, receiver, msg.as_string())
 			elif tls == "no":
-				smtpserver.login(smtp_login, smtp_password)
+				#smtpserver.login(smtp_login, smtp_password)
 				smtpserver.sendmail(sender, receiver, msg.as_string())
 		receiver_conf = ';'.join(receivers)
 		con = get_db_connection()
 		cur = con.cursor()
 		cur.execute("UPDATE config SET sender = (?)", (sender,))
-		cur.execute("UPDATE config SET smtp_password = (?)", ((str(base64.b64encode(smtp_password.encode("UTF-8"))).replace("b'","")).replace("'",""),))
-		cur.execute("UPDATE config SET smtp_login = (?)", (smtp_login,))
+		cur.execute("UPDATE config SET smtp_password = 'test'")
+		cur.execute("UPDATE config SET smtp_login = 'test'")
 		cur.execute("UPDATE config SET smtpsrv = (?)", (smtpsrv,))
 		cur.execute("UPDATE config SET port = (?)", (port,))
 		cur.execute("UPDATE config SET receiver = (?)", (receiver_conf,))

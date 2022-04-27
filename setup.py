@@ -97,7 +97,7 @@ def mailTester(smtp_login, smtp_passwd, server, port, tls, sender, receivers, la
                 smtpserver.login(smtp_login, smtp_passwd)
                 smtpserver.sendmail(sender, receiver, msg.as_string())
             elif tls == "no":
-                smtpserver.login(smtp_login, smtp_passwd)
+                #smtpserver.login(smtp_login, smtp_passwd)
                 smtpserver.sendmail(sender, receiver, msg.as_string())
             else:
                 print("You must specify if you want to use TLS(-tls yes|no). Exit.")

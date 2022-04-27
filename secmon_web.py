@@ -484,16 +484,16 @@ def config():
 			if not (re.search(regex,sender)):
 				flash("Wrong email format for the sender.","danger")
 				return render_template('config.html')
-			smtp_login = request.form['login']
+			#smtp_login = request.form['login']
 
-			smtp_password = request.form['pass1']
-			password2 = request.form['pass2']
+			#smtp_password = request.form['pass1']
+			#password2 = request.form['pass2']
 			smtpsrv = request.form['server']
 			port = request.form['port']
 			receivers = request.form['recipients']
-			if smtp_password != password2:
+			"""if smtp_password != password2:
 				flash("The two passwords do not match. ","danger")
-				return render_template('config.html')
+				return render_template('config.html')"""
 			try:
 				int(port)
 			except:
@@ -511,7 +511,7 @@ def config():
 					flash("Wrong email format for the recipients. ","danger")
 					return render_template('config.html')
 			tls = request.form['tls']
-			if mailTester(smtp_login, smtp_password, smtpsrv, port, tls, sender, receivers):
+			if mailTester(smtpsrv, port, tls, sender, receivers):
 				flash("The test email was sent successfully. ","success")
 				return render_template('config.html')				
 			else:

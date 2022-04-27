@@ -53,7 +53,7 @@ def checkConfig(sender, receiver, smtp_login, smtp_password, smtpsrv, port, tls,
 	for value in db_result_tuple:
 		b = value.encode("UTF-8")
 		bytes_password = base64.b64decode(b)
-		smtp_password = bytes_password.decode("UTF-8")
+		smtp_password = "test" #bytes_password.decode("UTF-8")
 
 	cur.execute("SELECT smtpsrv FROM config")
 	db_result_tuple = cur.fetchone()
@@ -547,11 +547,11 @@ def sendAlert(smtp_login, smtp_password, smtpsrv, port, tls, sender, receivers, 
 			if tls == "yes":
 				smtpserver.ehlo()
 				smtpserver.starttls()
-				smtpserver.login(smtp_login, smtp_password)
+				#smtpserver.login(smtp_login, smtp_password)
 				smtpserver.sendmail(sender, receiver, msg.as_string())
 				print(bcolors.HEADER+"Alert was sent at {}\n".format(receiver)+bcolors.ENDC)
 			elif tls == "no":
-				smtpserver.login(smtp_login, smtp_password)
+				#smtpserver.login(smtp_login, smtp_password)
 				smtpserver.sendmail(sender, receiver, msg.as_string())
 				print(bcolors.HEADER+"Alert was sent at {}\n".format(receiver)+bcolors.ENDC)
 		except Exception as e:
